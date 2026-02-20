@@ -1,0 +1,29 @@
+"use client";
+
+import PusherClient from "pusher-js";
+
+// ─── Client-side Pusher singleton ────────────────────────────────────────────
+//
+// Returns null when NEXT_PUBLIC_PUSHER_KEY is not set so components can
+// degrade gracefully during local development.
+
+let pusherInstance: PusherClient | null = null;
+
+export function getPusherClient(): PusherClient | null {
+  if (typeof window === "undefined") return null;
+
+  const key = process.env.NEXT_PUBLIC_PUSHER_KEY;
+  const cluster = process.env.NEXT_PUBLIC_PUSHER_CLUSTER;
+
+  if (!key || !cluster) {
+    return null;
+  }
+
+  if (!pusherInstance) {
+    pusherInstance = new PusherClient(key, {
+      cluster,
+    });
+  }
+
+  return pusherInstance;
+}

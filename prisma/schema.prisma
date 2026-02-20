@@ -1,0 +1,466 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Auth Models (NextAuth) ───────────────────────────────────────────────────
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── User ─────────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  VERIFIED_OWNER_OPERATOR
+  VERIFIED_DEALER
+  FLEET_ACCOUNT
+}
+
+model User {
+  id                 String             @id @default(cuid())
+  email              String             @unique
+  emailVerified      DateTime?
+  passwordHash       String?
+  name               String?
+  phone              String?
+  role               UserRole           @default(BUYER)
+  stripeCustomerId   String?
+  stripeConnectId    String?
+  profileImageUrl    String?
+  bio                String?            @db.Text
+  verificationStatus VerificationStatus @default(UNVERIFIED)
+  image              String?
+
+  accounts     Account[]
+  sessions     Session[]
+  listings     Listing[]
+  bids         Bid[]
+  comments     Comment[]
+  watchlist    WatchlistItem[]
+  transactions Transaction[]   @relation("BuyerTransactions")
+  sales        Transaction[]   @relation("SellerTransactions")
+  inspections  Inspection[]    @relation("InspectionPayer")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ─── Listing ──────────────────────────────────────────────────────────────────
+
+enum ListingStatus {
+  DRAFT
+  PENDING_REVIEW
+  ACTIVE
+  ENDED
+  SOLD
+  CANCELLED
+}
+
+enum TransmissionType {
+  MANUAL
+  AUTO
+  AUTOMATED_MANUAL
+}
+
+enum AxleConfiguration {
+  SINGLE
+  TANDEM
+  TRI_AXLE
+}
+
+enum SleeperType {
+  NONE
+  MID_ROOF
+  RAISED_ROOF
+  FLAT_TOP
+  CONDO
+}
+
+enum FuelType {
+  DIESEL
+  CNG
+  ELECTRIC
+}
+
+enum EmissionsStandard {
+  PRE_EPA07
+  EPA07
+  EPA10
+  EPA13
+  EPA17_PLUS
+}
+
+enum DriveTrain {
+  FOUR_BY_TWO   @map("4x2")
+  SIX_BY_FOUR   @map("6x4")
+  SIX_BY_TWO    @map("6x2")
+}
+
+enum ListingTier {
+  STANDARD
+  FEATURED
+}
+
+model Listing {
+  id       String        @id @default(cuid())
+  sellerId String
+  seller   User          @relation(fields: [sellerId], references: [id])
+  status   ListingStatus @default(DRAFT)
+  slug     String?       @unique
+
+  // Basic info
+  title String
+  make  String
+  model String
+  year  Int
+  vin   String?
+
+  // Specs
+  mileage            Int?
+  engineMake         String?
+  engineModel        String?
+  engineHP           Int?
+  transmissionType   TransmissionType?
+  transmissionModel  String?
+  axleConfiguration  AxleConfiguration?
+  suspensionType     String?
+  wheelbase          String?
+  sleeperType        SleeperType?
+  fifthWheelType     String?
+  fuelType           FuelType?          @default(DIESEL)
+  emissionsStandard  EmissionsStandard?
+  carbCompliant      Boolean            @default(false)
+  driveTrain         DriveTrain?
+  exteriorColor      String?
+  interiorCondition  String?
+
+  // Tires & Brakes
+  tireCondition  String?
+  tireBrand      String?
+  tireSize       String?
+  brakeCondition String?
+
+  // Emissions details
+  dpfStatus            String?
+  egrStatus            String?
+  aftertreatmentNotes  String? @db.Text
+
+  // Description
+  description String? @db.Text
+
+  // Auction settings
+  reservePrice     Int? // in cents
+  hasReserve       Boolean  @default(false)
+  startingBid      Int      @default(0) // in cents
+  auctionStartTime DateTime?
+  auctionEndTime   DateTime?
+  buyNowPrice      Int? // in cents
+  listingTier      ListingTier @default(STANDARD)
+
+  // Computed / tracked
+  currentHighBid Int @default(0) // in cents
+  bidCount       Int @default(0)
+  viewCount      Int @default(0)
+  watchCount     Int @default(0)
+
+  // Location
+  locationCity  String?
+  locationState String?
+  locationZip   String?
+
+  // Damage
+  noDamage             Boolean @default(true)
+
+  photos             ListingPhoto[]
+  maintenanceRecords MaintenanceRecord[]
+  inspections        Inspection[]
+  bids               Bid[]
+  comments           Comment[]
+  watchlist          WatchlistItem[]
+  transaction        Transaction?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([make])
+  @@index([year])
+  @@index([auctionEndTime])
+  @@index([sellerId])
+}
+
+// ─── Listing Photos ───────────────────────────────────────────────────────────
+
+enum PhotoCategory {
+  EXTERIOR_FRONT
+  EXTERIOR_REAR
+  EXTERIOR_DRIVER_SIDE
+  EXTERIOR_PASSENGER_SIDE
+  ENGINE_BAY
+  FRAME_RAILS
+  FIFTH_WHEEL
+  UNDERCARRIAGE
+  CAB_INTERIOR
+  DASHBOARD
+  SLEEPER
+  GAUGES_ODOMETER
+  TIRES_FRONT
+  TIRES_REAR
+  DOT_STICKER
+  DAMAGE_DOCUMENTATION
+  MAINTENANCE_DOCS
+  OTHER
+}
+
+model ListingPhoto {
+  id           String        @id @default(cuid())
+  listingId    String
+  listing      Listing       @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  url          String
+  thumbnailUrl String?
+  category     PhotoCategory
+  sortOrder    Int           @default(0)
+  caption      String?
+
+  createdAt DateTime @default(now())
+
+  @@index([listingId])
+}
+
+// ─── Maintenance Records ──────────────────────────────────────────────────────
+
+enum MaintenanceType {
+  OIL_CHANGE
+  TRANSMISSION_SERVICE
+  DPF_CLEAN_REGEN
+  INJECTOR_REPLACEMENT
+  TURBO_SERVICE
+  EGR_SERVICE
+  BRAKE_SERVICE
+  TIRE_REPLACEMENT
+  CLUTCH_REPLACEMENT
+  COOLANT_SERVICE
+  ECM_REPORT
+  OIL_ANALYSIS
+  OTHER
+}
+
+model MaintenanceRecord {
+  id               String          @id @default(cuid())
+  listingId        String
+  listing          Listing         @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  type             MaintenanceType
+  description      String?         @db.Text
+  mileageAtService Int?
+  datePerformed    DateTime?
+  shopName         String?
+  documentUrl      String?
+
+  createdAt DateTime @default(now())
+
+  @@index([listingId])
+}
+
+// ─── Inspections ──────────────────────────────────────────────────────────────
+
+enum InspectionTier {
+  BASIC
+  COMPREHENSIVE
+}
+
+enum InspectionStatus {
+  REQUESTED
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum InspectionRating {
+  A
+  B
+  C
+  D
+  F
+}
+
+model InspectionPartner {
+  id               String         @id @default(cuid())
+  shopName         String
+  address          String
+  city             String
+  state            String
+  zip              String
+  phone            String?
+  email            String?
+  contactName      String?
+  servicesOffered  String         @default("BOTH") // BASIC | COMPREHENSIVE | BOTH
+  priceBasic       Int            @default(24900) // in cents
+  priceComprehensive Int          @default(74900)
+  averageRating    Float          @default(0)
+  isActive         Boolean        @default(true)
+
+  inspections Inspection[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Inspection {
+  id          String           @id @default(cuid())
+  listingId   String
+  listing     Listing          @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  tier        InspectionTier
+  status      InspectionStatus @default(REQUESTED)
+  inspectorId String?
+  inspector   InspectionPartner? @relation(fields: [inspectorId], references: [id])
+
+  scheduledDate DateTime?
+  reportUrl     String?
+
+  overallRating      InspectionRating?
+  engineScore        InspectionRating?
+  transmissionScore  InspectionRating?
+  frameScore         InspectionRating?
+  brakeScore         InspectionRating?
+  electricalScore    InspectionRating?
+  cabScore           InspectionRating?
+  notes              String?           @db.Text
+
+  paidByUserId          String?
+  paidByUser            User?    @relation("InspectionPayer", fields: [paidByUserId], references: [id])
+  paymentAmount         Int?     // in cents
+  stripePaymentIntentId String?
+
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([listingId])
+}
+
+// ─── Bids ─────────────────────────────────────────────────────────────────────
+
+model Bid {
+  id              String  @id @default(cuid())
+  listingId       String
+  listing         Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  bidderId        String
+  bidder          User    @relation(fields: [bidderId], references: [id])
+  amount          Int // in cents
+  isAutoBid       Boolean @default(false)
+  maxAutoBidAmount Int?   // in cents
+
+  createdAt DateTime @default(now())
+
+  @@index([listingId])
+  @@index([bidderId])
+}
+
+// ─── Comments ─────────────────────────────────────────────────────────────────
+
+model Comment {
+  id               String   @id @default(cuid())
+  listingId        String
+  listing          Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  parentId         String?
+  parent           Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  replies          Comment[] @relation("CommentReplies")
+  body             String   @db.Text
+  isSellerResponse Boolean  @default(false)
+  isPinned         Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([listingId])
+}
+
+// ─── Watchlist ────────────────────────────────────────────────────────────────
+
+model WatchlistItem {
+  id        String  @id @default(cuid())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listingId String
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, listingId])
+}
+
+// ─── Transactions ─────────────────────────────────────────────────────────────
+
+enum TransactionStatus {
+  PENDING_PAYMENT
+  PAID
+  IN_TRANSPORT
+  COMPLETED
+  DISPUTED
+}
+
+model Transaction {
+  id                    String            @id @default(cuid())
+  listingId             String            @unique
+  listing               Listing           @relation(fields: [listingId], references: [id])
+  buyerId               String
+  buyer                 User              @relation("BuyerTransactions", fields: [buyerId], references: [id])
+  sellerId              String
+  seller                User              @relation("SellerTransactions", fields: [sellerId], references: [id])
+  salePrice             Int // in cents
+  buyerPremiumAmount    Int // in cents (5%, capped at $5,000)
+  totalAmount           Int // in cents
+  stripePaymentIntentId String?
+  status                TransactionStatus @default(PENDING_PAYMENT)
+  transportQuoteAmount  Int? // in cents
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
