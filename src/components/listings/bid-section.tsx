@@ -3,11 +3,9 @@
 import { useState, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { Gavel, AlertTriangle, TrendingUp, Minus, Plus } from "lucide-react";
+import { AlertTriangle, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CountdownTimer } from "@/components/listings/countdown-timer";
 import { formatPrice, getBidIncrement } from "@/lib/utils";
 import { ANTI_SNIPE_WINDOW_MS } from "@/lib/constants";
@@ -44,7 +42,7 @@ function buildBidderLabels(bids: Bid[]): Map<string, string> {
   let counter = 1;
   for (const bid of bids) {
     if (!map.has(bid.bidderId)) {
-      map.set(bid.bidderId, `Bidder #${counter}`);
+      map.set(bid.bidderId, `Bidder ${counter}`);
       counter++;
     }
   }
@@ -150,39 +148,49 @@ export function BidSection({
     }
   }
 
+  // Reserve status label
+  const reserveLabel = !hasReserve
+    ? "No Reserve"
+    : reserveMet
+      ? "Reserve Met"
+      : "Reserve Not Met";
+
+  const reserveColor = !hasReserve
+    ? "text-bat-green"
+    : reserveMet
+      ? "text-bat-green"
+      : "text-gray-400";
+
   return (
-    <Card className="sticky top-4">
-      <CardHeader className="pb-3">
+    <div className="sticky top-4 rounded-lg border border-gray-200 bg-white">
+      {/* ── Header bar ── */}
+      <div className="border-b border-gray-100 px-5 py-4">
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
-            <Gavel className="h-5 w-5 text-brand-600" />
-            {isEnded || auctionEnded ? "Auction Ended" : "Place Your Bid"}
-          </CardTitle>
-          {hasReserve && !isEnded && !auctionEnded && (
-            <Badge variant={reserveMet ? "success" : "warning"}>
-              {reserveMet ? "Reserve Met" : "Reserve Not Met"}
-            </Badge>
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-navy-700">
+            {isEnded || auctionEnded ? "Auction Ended" : "Current Bid"}
+          </h3>
+          {!isEnded && !auctionEnded && (
+            <span className={`text-xs font-semibold uppercase tracking-wide ${reserveColor}`}>
+              {reserveLabel}
+            </span>
           )}
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent className="space-y-5">
-        {/* Current bid */}
-        <div className="rounded-lg bg-gray-50 p-4 text-center">
-          <p className="text-xs font-medium uppercase tracking-wider text-gray-500">
-            {bidCount > 0 ? "Current High Bid" : "Starting Bid"}
-          </p>
-          <p className="mt-1 text-3xl font-bold text-navy-900">
+      <div className="px-5 py-5 space-y-5">
+        {/* ── Current bid display ── */}
+        <div className="text-center">
+          <p className="text-4xl font-bold tracking-tight text-navy-900">
             {formatPrice(activeBid)}
           </p>
-          <p className="mt-1 text-xs text-gray-500">
+          <p className="mt-1 text-sm text-gray-400">
             {bidCount} {bidCount === 1 ? "bid" : "bids"}
           </p>
         </div>
 
-        {/* Countdown */}
+        {/* ── Countdown ── */}
         {endTime && !auctionEnded && (
-          <div className="flex justify-center">
+          <div className="flex justify-center border-t border-gray-100 pt-4">
             <CountdownTimer
               endTime={endTime}
               onEnd={() => setAuctionEnded(true)}
@@ -190,36 +198,35 @@ export function BidSection({
           </div>
         )}
 
-        {/* Anti-snipe notice */}
+        {/* ── Anti-snipe notice ── */}
         {isAntiSnipeWindow && (
-          <div className="flex items-start gap-2 rounded-md border border-yellow-200 bg-yellow-50 p-3">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-yellow-600" />
-            <p className="text-xs text-yellow-800">
+          <div className="flex items-start gap-2.5 rounded border border-amber-200 bg-amber-50/60 px-3 py-2.5">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-500" />
+            <p className="text-xs leading-relaxed text-amber-700">
               Less than 2 minutes remain. Any bid placed will extend the auction
               by 2 minutes to prevent sniping.
             </p>
           </div>
         )}
 
-        {/* Bid form (only if auction is active and not ended) */}
+        {/* ── Bid form ── */}
         {isActive && !auctionEnded && (
           <>
             {session?.user ? (
               <div className="space-y-3">
                 {/* Increment buttons + input */}
                 <div className="flex items-center gap-2">
-                  <Button
+                  <button
                     type="button"
-                    variant="outline"
-                    size="icon"
                     onClick={() => adjustBid("down")}
                     disabled={bidAmountCents <= minimumBid}
                     aria-label="Decrease bid"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     <Minus className="h-4 w-4" />
-                  </Button>
+                  </button>
                   <div className="relative flex-1">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-400">
                       $
                     </span>
                     <Input
@@ -231,100 +238,115 @@ export function BidSection({
                       step={increment / 100}
                     />
                   </div>
-                  <Button
+                  <button
                     type="button"
-                    variant="outline"
-                    size="icon"
                     onClick={() => adjustBid("up")}
                     aria-label="Increase bid"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-gray-200 bg-white text-gray-500 transition-colors hover:bg-gray-50"
                   >
                     <Plus className="h-4 w-4" />
-                  </Button>
+                  </button>
                 </div>
 
                 {/* Bid increment info */}
-                <p className="text-center text-xs text-gray-500">
-                  Minimum bid: {formatPrice(minimumBid)} (increment:{" "}
-                  {formatPrice(increment)})
+                <p className="text-center text-xs text-gray-400">
+                  Min {formatPrice(minimumBid)} &middot; {formatPrice(increment)}{" "}
+                  increments
                 </p>
 
                 {/* Place bid button */}
                 <Button
                   onClick={handlePlaceBid}
                   disabled={isSubmitting}
-                  className="w-full"
+                  className="w-full bg-brand-600 text-white hover:bg-brand-700"
                   size="lg"
                 >
-                  <TrendingUp className="mr-2 h-4 w-4" />
                   {isSubmitting
                     ? "Placing Bid..."
-                    : `Place Bid ${formatPrice(bidAmountCents)}`}
+                    : `Place Bid \u2014 ${formatPrice(bidAmountCents)}`}
                 </Button>
 
                 {/* Error / success */}
                 {error && (
-                  <p className="text-center text-sm font-medium text-red-600">
-                    {error}
-                  </p>
+                  <p className="text-center text-sm text-red-600">{error}</p>
                 )}
                 {successMessage && (
-                  <p className="text-center text-sm font-medium text-green-600">
+                  <p className="text-center text-sm text-bat-green">
                     {successMessage}
                   </p>
                 )}
               </div>
             ) : (
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 text-center">
-                <p className="mb-2 text-sm text-gray-600">
+              <div className="border-t border-gray-100 pt-4 text-center">
+                <p className="mb-3 text-sm text-gray-500">
                   Sign in to place a bid
                 </p>
                 <Link href="/auth/signin">
-                  <Button variant="default" size="sm">Sign In</Button>
+                  <Button variant="default" size="sm">
+                    Sign In
+                  </Button>
                 </Link>
               </div>
             )}
           </>
         )}
 
-        {/* Bid increment rules */}
+        {/* ── Bid increment rules ── */}
         {isActive && !auctionEnded && (
-          <div className="space-y-1 border-t border-gray-100 pt-4">
-            <p className="text-xs font-semibold text-gray-700">
-              Bid Increment Rules
+          <div className="border-t border-gray-100 pt-4">
+            <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-gray-400">
+              Bid Increments
             </p>
-            <ul className="space-y-0.5 text-xs text-gray-500">
-              <li>Under $5,000: $100 increments</li>
-              <li>$5,000 &ndash; $24,999: $250 increments</li>
-              <li>$25,000 &ndash; $99,999: $500 increments</li>
-              <li>$100,000+: $1,000 increments</li>
-            </ul>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-0.5 text-xs text-gray-500">
+              <span>Under $5,000</span>
+              <span className="text-right">$100</span>
+              <span>$5,000 &ndash; $24,999</span>
+              <span className="text-right">$250</span>
+              <span>$25,000 &ndash; $99,999</span>
+              <span className="text-right">$500</span>
+              <span>$100,000+</span>
+              <span className="text-right">$1,000</span>
+            </div>
           </div>
         )}
 
-        {/* Bid history */}
+        {/* ── Bid history ── */}
         {bids.length > 0 && (
-          <div className="space-y-2 border-t border-gray-100 pt-4">
-            <p className="text-xs font-semibold text-gray-700">Bid History</p>
-            <div className="max-h-64 space-y-1.5 overflow-y-auto">
+          <div className="border-t border-gray-100 pt-4">
+            <p className="mb-2 text-[11px] font-semibold uppercase tracking-wide text-gray-400">
+              Bid History
+            </p>
+            <div className="max-h-64 overflow-y-auto">
               {bids.map((bid, idx) => {
-                const label = bidderLabels.get(bid.bidderId) ?? `Bidder #${idx + 1}`;
+                const label =
+                  bidderLabels.get(bid.bidderId) ?? `Bidder ${idx + 1}`;
                 const date = new Date(bid.createdAt);
 
                 return (
                   <div
                     key={bid.id}
-                    className={`flex items-center justify-between rounded-md px-3 py-2 text-sm ${
-                      idx === 0
-                        ? "bg-brand-50 font-semibold text-brand-800"
-                        : "bg-gray-50 text-gray-700"
+                    className={`flex items-center justify-between border-b border-gray-50 px-2 py-2 text-sm last:border-b-0 ${
+                      idx % 2 === 0 ? "bg-white" : "bg-gray-50/50"
                     }`}
                   >
-                    <span>{label}</span>
-                    <div className="text-right">
-                      <span className="font-medium">
+                    <span
+                      className={`${
+                        idx === 0
+                          ? "font-semibold text-navy-900"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {label}
+                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span
+                        className={`font-medium ${
+                          idx === 0 ? "text-navy-900" : "text-gray-700"
+                        }`}
+                      >
                         {formatPrice(bid.amount)}
                       </span>
-                      <span className="ml-2 text-xs text-gray-400">
+                      <span className="text-[11px] text-gray-400">
                         {date.toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
@@ -341,7 +363,7 @@ export function BidSection({
             </div>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

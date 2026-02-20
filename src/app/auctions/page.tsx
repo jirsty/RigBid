@@ -155,23 +155,23 @@ export default async function AuctionsPage({ searchParams }: AuctionsPageProps) 
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Browse Auctions
+      {/* Page Header */}
+      <div className="mb-8 border-b border-gray-200 pb-6">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          Auctions
         </h1>
-        <p className="mt-1 text-sm text-gray-500">
-          {listings.length} {listings.length === 1 ? "listing" : "listings"} found
+        <p className="mt-2 text-sm text-gray-500">
+          {listings.length} {listings.length === 1 ? "active listing" : "active listings"}
         </p>
       </div>
 
       <div className="flex gap-8">
-        {/* Filters (desktop sidebar + mobile trigger) */}
+        {/* Filters Sidebar */}
         <ListingFilters totalCount={listings.length} />
 
-        {/* Listings grid */}
+        {/* Listings Grid */}
         <div className="min-w-0 flex-1">
-          {/* Mobile sort/filter bar */}
+          {/* Mobile count */}
           <div className="mb-4 flex items-center justify-between lg:hidden">
             <p className="text-sm text-gray-500">
               {listings.length} {listings.length === 1 ? "result" : "results"}
@@ -179,19 +179,21 @@ export default async function AuctionsPage({ searchParams }: AuctionsPageProps) 
           </div>
 
           {listings.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
               {listings.map((listing) => (
                 <ListingCard key={listing.id} listing={listing} />
               ))}
             </div>
           ) : (
-            /* Empty state */
-            <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 py-16">
-              <Truck className="h-12 w-12 text-gray-300" />
-              <h3 className="mt-4 text-lg font-semibold text-gray-900">
+            /* Empty State */
+            <div className="flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white py-20">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
+                <Truck className="h-7 w-7 text-gray-400" />
+              </div>
+              <h3 className="mt-5 text-base font-semibold text-gray-900">
                 No listings found
               </h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1.5 max-w-sm text-center text-sm text-gray-500">
                 Try adjusting your filters or clearing them to see more results.
               </p>
             </div>

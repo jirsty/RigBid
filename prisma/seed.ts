@@ -27,13 +27,69 @@ function cents(dollars: number): number {
   return dollars * 100;
 }
 
-function placeholderPhoto(label: string, bg = '1a2b3c'): { url: string; thumbnailUrl: string } {
-  const encoded = encodeURIComponent(label);
-  return {
-    url: `https://placehold.co/1200x800/${bg}/ffffff?text=${encoded}`,
-    thumbnailUrl: `https://placehold.co/400x300/${bg}/ffffff?text=${encoded}`,
-  };
-}
+// Real Unsplash truck images mapped to each listing index
+const TRUCK_IMAGES: Array<{ url: string; thumbnailUrl: string }> = [
+  // 0 - 2019 Freightliner Cascadia (White)
+  {
+    url: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400&h=300&fit=crop',
+  },
+  // 1 - 2021 Peterbilt 579 (Black)
+  {
+    url: 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?w=400&h=300&fit=crop',
+  },
+  // 2 - 2017 Kenworth T680 (Red)
+  {
+    url: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=400&h=300&fit=crop',
+  },
+  // 3 - 2020 Volvo VNL 860 (Silver)
+  {
+    url: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=400&h=300&fit=crop',
+  },
+  // 4 - 2016 International LT (Blue)
+  {
+    url: 'https://images.unsplash.com/photo-1605705658744-45f0fe8f9663?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1605705658744-45f0fe8f9663?w=400&h=300&fit=crop',
+  },
+  // 5 - 2018 Mack Anthem (Graphite)
+  {
+    url: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=400&h=300&fit=crop',
+  },
+  // 6 - 2022 Freightliner Cascadia (Pearl White, Featured)
+  {
+    url: 'https://images.unsplash.com/photo-1616432043562-3671ea2e5242?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1616432043562-3671ea2e5242?w=400&h=300&fit=crop',
+  },
+  // 7 - 2015 Peterbilt 389 (Black Cherry, Classic)
+  {
+    url: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=400&h=300&fit=crop',
+  },
+  // 8 - 2020 Kenworth W990 (Viper Red, Show Truck)
+  {
+    url: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=400&h=300&fit=crop',
+  },
+  // 9 - 2017 Volvo VNL 670 (White)
+  {
+    url: 'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?w=400&h=300&fit=crop',
+  },
+  // 10 - 2023 Freightliner Cascadia (Midnight Blue)
+  {
+    url: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=300&fit=crop',
+  },
+  // 11 - 2019 Peterbilt 567 Day Cab (Yellow)
+  {
+    url: 'https://images.unsplash.com/photo-1532635241-17e820acc59f?w=1200&h=800&fit=crop',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1532635241-17e820acc59f?w=400&h=300&fit=crop',
+  },
+];
 
 const PHOTO_CATEGORIES = [
   'EXTERIOR_FRONT',
@@ -781,21 +837,24 @@ async function main() {
   console.log('Creating listing photos...');
   let photoCount = 0;
 
-  const bgColors = [
-    '1a2b3c', '2c3e50', '34495e', '1b4332', '3c1a2b',
-    '2b1a3c', '3c2b1a', '1a3c2b', '4a2c1b', '2b3c4a',
-    '1c2b3a', '3a2b1c',
-  ];
-
   for (let i = 0; i < listings.length; i++) {
     const listing = listings[i];
     const shortName = listing.title.split(' \u2014')[0]; // e.g. "2019 Freightliner Cascadia"
-    const bg = bgColors[i % bgColors.length];
+    const truckImage = TRUCK_IMAGES[i];
 
     for (let j = 0; j < PHOTO_CATEGORIES.length; j++) {
       const cat = PHOTO_CATEGORIES[j];
-      const label = `${shortName.replace(/ /g, '+')}+${CATEGORY_LABELS[cat]}`;
-      const { url, thumbnailUrl } = placeholderPhoto(label, bg);
+
+      // Use the real truck image for the main exterior shots, same image with slight crop variations for others
+      const isMainPhoto = j === 0; // EXTERIOR_FRONT is the hero image
+      const cropOffset = j * 5; // Slight variation via crop positioning
+
+      const url = isMainPhoto
+        ? truckImage.url
+        : `${truckImage.url.split('?')[0]}?w=1200&h=800&fit=crop&crop=entropy&q=80&fp-y=0.${50 + cropOffset}`;
+      const thumbnailUrl = isMainPhoto
+        ? truckImage.thumbnailUrl
+        : `${truckImage.thumbnailUrl.split('?')[0]}?w=400&h=300&fit=crop&crop=entropy&q=80&fp-y=0.${50 + cropOffset}`;
 
       await prisma.listingPhoto.create({
         data: {

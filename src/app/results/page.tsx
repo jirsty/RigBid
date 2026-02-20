@@ -69,46 +69,50 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+      {/* Page Header */}
+      <div className="mb-8 border-b border-gray-200 pb-6">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           Auction Results
         </h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <p className="mt-2 text-sm text-gray-500">
           Browse completed auctions and research market values
         </p>
       </div>
 
-      {/* Search bar */}
+      {/* Search */}
       <div className="mb-8">
         <ResultsSearch defaultValue={currentQuery} />
       </div>
 
       {/* Result count */}
-      <p className="mb-4 text-sm text-gray-500">
-        {listings.length} {listings.length === 1 ? "result" : "results"} found
-        {currentQuery && (
-          <span>
-            {" "}for <span className="font-medium text-gray-900">&quot;{currentQuery}&quot;</span>
-          </span>
-        )}
-      </p>
+      <div className="mb-5 flex items-center gap-2">
+        <p className="text-sm text-gray-500">
+          {listings.length} {listings.length === 1 ? "result" : "results"}
+          {currentQuery && (
+            <span>
+              {" "}for <span className="font-medium text-gray-900">&quot;{currentQuery}&quot;</span>
+            </span>
+          )}
+        </p>
+      </div>
 
-      {/* Listings grid */}
+      {/* Listings Grid */}
       {listings.length > 0 ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {listings.map((listing) => (
             <ListingCard key={listing.id} listing={listing} />
           ))}
         </div>
       ) : (
-        /* Empty state */
-        <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 py-16">
-          <Truck className="h-12 w-12 text-gray-300" />
-          <h3 className="mt-4 text-lg font-semibold text-gray-900">
+        /* Empty State */
+        <div className="flex flex-col items-center justify-center rounded-lg border border-gray-200 bg-white py-20">
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100">
+            <Truck className="h-7 w-7 text-gray-400" />
+          </div>
+          <h3 className="mt-5 text-base font-semibold text-gray-900">
             No results found
           </h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1.5 max-w-sm text-center text-sm text-gray-500">
             {currentQuery
               ? "Try a different search term to find completed auctions."
               : "There are no completed auctions yet. Check back soon."}

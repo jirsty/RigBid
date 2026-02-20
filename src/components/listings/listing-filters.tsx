@@ -49,17 +49,17 @@ function FilterSection({ title, children, defaultOpen = true }: FilterSectionPro
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div className="border-b border-gray-200 py-4">
+    <div className="border-b border-gray-100 py-3.5">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between text-sm font-semibold text-gray-900"
+        className="flex w-full items-center justify-between text-xs font-semibold uppercase tracking-wide text-gray-500"
       >
         {title}
         {open ? (
-          <ChevronUp className="h-4 w-4 text-gray-500" />
+          <ChevronUp className="h-3.5 w-3.5 text-gray-400" />
         ) : (
-          <ChevronDown className="h-4 w-4 text-gray-500" />
+          <ChevronDown className="h-3.5 w-3.5 text-gray-400" />
         )}
       </button>
       {open && <div className="mt-3">{children}</div>}
@@ -181,7 +181,7 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
   const filtersContent = (
     <div className="space-y-0">
       {/* Sort */}
-      <div className="pb-4">
+      <div className="pb-3.5">
         <Select
           label="Sort by"
           options={SORT_OPTIONS}
@@ -194,12 +194,12 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
       <FilterSection title="Make">
         <div className="space-y-2">
           {TRUCK_MAKES.map((make) => (
-            <label key={make} className="flex items-center gap-2 text-sm text-gray-700">
+            <label key={make} className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900">
               <input
                 type="checkbox"
                 checked={currentMakes.includes(make)}
                 onChange={() => toggleMake(make)}
-                className="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
+                className="h-3.5 w-3.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
               />
               {make}
             </label>
@@ -215,15 +215,15 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
             placeholder="Min"
             value={currentYearMin}
             onChange={(e) => updateParams({ yearMin: e.target.value || null })}
-            className="h-9 text-sm"
+            className="h-8 text-sm"
           />
-          <span className="text-gray-400">-</span>
+          <span className="text-xs text-gray-300">&ndash;</span>
           <Input
             type="number"
             placeholder="Max"
             value={currentYearMax}
             onChange={(e) => updateParams({ yearMax: e.target.value || null })}
-            className="h-9 text-sm"
+            className="h-8 text-sm"
           />
         </div>
       </FilterSection>
@@ -236,15 +236,15 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
             placeholder="Min"
             value={currentMileageMin}
             onChange={(e) => updateParams({ mileageMin: e.target.value || null })}
-            className="h-9 text-sm"
+            className="h-8 text-sm"
           />
-          <span className="text-gray-400">-</span>
+          <span className="text-xs text-gray-300">&ndash;</span>
           <Input
             type="number"
             placeholder="Max"
             value={currentMileageMax}
             onChange={(e) => updateParams({ mileageMax: e.target.value || null })}
-            className="h-9 text-sm"
+            className="h-8 text-sm"
           />
         </div>
       </FilterSection>
@@ -257,15 +257,15 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
             placeholder="Min ($)"
             value={currentPriceMin}
             onChange={(e) => updateParams({ priceMin: e.target.value || null })}
-            className="h-9 text-sm"
+            className="h-8 text-sm"
           />
-          <span className="text-gray-400">-</span>
+          <span className="text-xs text-gray-300">&ndash;</span>
           <Input
             type="number"
             placeholder="Max ($)"
             value={currentPriceMax}
             onChange={(e) => updateParams({ priceMax: e.target.value || null })}
-            className="h-9 text-sm"
+            className="h-8 text-sm"
           />
         </div>
       </FilterSection>
@@ -302,14 +302,14 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
 
       {/* CARB Compliant */}
       <FilterSection title="Compliance" defaultOpen={currentCarbCompliant}>
-        <label className="flex items-center gap-2 text-sm text-gray-700">
+        <label className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900">
           <input
             type="checkbox"
             checked={currentCarbCompliant}
             onChange={(e) =>
               updateParams({ carbCompliant: e.target.checked ? "true" : null })
             }
-            className="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
+            className="h-3.5 w-3.5 rounded border-gray-300 text-brand-600 focus:ring-brand-500"
           />
           CARB Compliant
         </label>
@@ -328,15 +328,13 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
       {/* Clear All */}
       {activeFilterCount > 0 && (
         <div className="pt-4">
-          <Button
-            variant="ghost"
-            size="sm"
+          <button
             onClick={clearAll}
-            className="w-full text-gray-500 hover:text-gray-700"
+            className="flex w-full items-center justify-center gap-1.5 rounded-md py-2 text-xs font-medium text-gray-500 transition-colors hover:text-brand-600"
           >
-            <X className="mr-1.5 h-4 w-4" />
+            <X className="h-3.5 w-3.5" />
             Clear All Filters
-          </Button>
+          </button>
         </div>
       )}
     </div>
@@ -348,13 +346,14 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
       <div className="lg:hidden">
         <Button
           variant="outline"
+          size="sm"
           onClick={() => setMobileOpen(true)}
           className="relative"
         >
-          <SlidersHorizontal className="mr-2 h-4 w-4" />
+          <SlidersHorizontal className="mr-2 h-3.5 w-3.5" />
           Filters
           {activeFilterCount > 0 && (
-            <span className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] font-bold text-white">
+            <span className="ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-600 text-[9px] font-bold text-white">
               {activeFilterCount}
             </span>
           )}
@@ -366,14 +365,14 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
         <div className="fixed inset-0 z-50 lg:hidden">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/30"
+            className="fixed inset-0 bg-black/25 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
 
           {/* Panel */}
           <div className="fixed inset-y-0 left-0 flex w-full max-w-xs flex-col bg-white shadow-xl">
-            <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
-              <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+            <div className="flex items-center justify-between border-b border-gray-100 px-5 py-4">
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-900">Filters</h2>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
@@ -382,10 +381,10 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto px-4 pb-6">
+            <div className="flex-1 overflow-y-auto px-5 pb-6">
               {filtersContent}
             </div>
-            <div className="border-t border-gray-200 px-4 py-3">
+            <div className="border-t border-gray-100 px-5 py-4">
               <Button
                 className="w-full"
                 onClick={() => setMobileOpen(false)}
@@ -398,18 +397,18 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
       )}
 
       {/* Desktop sidebar */}
-      <aside className="hidden w-[280px] shrink-0 lg:block">
-        <div className="sticky top-4">
-          <div className="flex items-center justify-between pb-4">
-            <h2 className="flex items-center gap-2 text-sm font-semibold text-gray-900">
-              <SlidersHorizontal className="h-4 w-4" />
+      <aside className="hidden w-[260px] shrink-0 lg:block">
+        <div className="sticky top-4 rounded-lg border border-gray-200 bg-white p-5">
+          <div className="flex items-center justify-between border-b border-gray-100 pb-3.5">
+            <h2 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-gray-900">
+              <SlidersHorizontal className="h-3.5 w-3.5" />
               Filters
-              {activeFilterCount > 0 && (
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] font-bold text-white">
-                  {activeFilterCount}
-                </span>
-              )}
             </h2>
+            {activeFilterCount > 0 && (
+              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-600 px-1.5 text-[10px] font-bold text-white">
+                {activeFilterCount}
+              </span>
+            )}
           </div>
           {filtersContent}
         </div>
@@ -418,7 +417,7 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
       {/* Loading overlay */}
       {isPending && (
         <div className="pointer-events-none fixed inset-0 z-40 flex items-start justify-center pt-32">
-          <div className="rounded-lg bg-white px-4 py-2 shadow-lg">
+          <div className="rounded-lg border border-gray-200 bg-white px-4 py-2 shadow-sm">
             <p className="text-sm text-gray-500">Updating results...</p>
           </div>
         </div>

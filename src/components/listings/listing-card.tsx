@@ -58,52 +58,43 @@ export function ListingCard({ listing }: ListingCardProps) {
 
   return (
     <Link href={href} className="group block">
-      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
+      <div className="overflow-hidden rounded-lg bg-white shadow-sm transition-shadow duration-200 hover:shadow-md">
         {/* Image */}
-        <div className="relative aspect-[16/10] overflow-hidden bg-gray-100">
+        <div className="relative aspect-[16/9] overflow-hidden bg-gray-200">
           <Image
             src={imageUrl}
             alt={listing.title}
             fill
-            className="object-cover transition-transform group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
-          {listing.listingTier === "FEATURED" && (
-            <Badge
-              variant="brand"
-              className="absolute left-3 top-3 shadow-sm"
-            >
-              Featured
-            </Badge>
-          )}
           {isEnded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-              <Badge
-                variant={listing.status === "SOLD" ? "success" : "default"}
-                className="px-4 py-1.5 text-sm"
-              >
-                {listing.status === "SOLD" ? "SOLD" : "Auction Ended"}
-              </Badge>
+            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+              <span className="rounded bg-white/95 px-5 py-2 text-sm font-bold tracking-wide text-gray-900 uppercase">
+                {listing.status === "SOLD" ? "Sold" : "Ended"}
+              </span>
             </div>
           )}
         </div>
 
         {/* Content */}
-        <div className="p-4">
-          <h3 className="mb-1 text-sm font-semibold text-gray-900 line-clamp-2 group-hover:text-brand-600">
+        <div className="px-4 pt-3 pb-4">
+          {/* Title */}
+          <h3 className="text-base leading-snug font-semibold text-gray-900 line-clamp-2 group-hover:text-brand-600 transition-colors duration-150">
             {listing.title}
           </h3>
 
+          {/* Location */}
           {listing.locationCity && listing.locationState && (
-            <p className="mb-3 text-xs text-gray-500">
+            <p className="mt-1 text-sm text-gray-400">
               {listing.locationCity}, {listing.locationState}
             </p>
           )}
 
-          {/* Bid info */}
-          <div className="flex items-end justify-between">
+          {/* Bid + Timer row */}
+          <div className="mt-3 flex items-end justify-between">
             <div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs font-medium tracking-wide text-gray-400 uppercase">
                 {isEnded
                   ? listing.status === "SOLD"
                     ? "Sold for"
@@ -112,7 +103,7 @@ export function ListingCard({ listing }: ListingCardProps) {
                     ? "Current bid"
                     : "Starting bid"}
               </p>
-              <p className="text-lg font-bold text-navy-900">
+              <p className="text-xl font-bold tracking-tight text-gray-900">
                 {formatPrice(currentBid)}
               </p>
             </div>
@@ -124,8 +115,8 @@ export function ListingCard({ listing }: ListingCardProps) {
             </div>
           </div>
 
-          {/* Stats bar */}
-          <div className="mt-3 flex items-center gap-4 border-t border-gray-100 pt-3 text-xs text-gray-500">
+          {/* Stats row */}
+          <div className="mt-3 flex items-center gap-3 border-t border-gray-100 pt-3 text-xs text-gray-400">
             <span className="flex items-center gap-1">
               <Gavel className="h-3.5 w-3.5" />
               {listing.bidCount} {listing.bidCount === 1 ? "bid" : "bids"}
@@ -136,14 +127,15 @@ export function ListingCard({ listing }: ListingCardProps) {
                 {listing._count.comments}
               </span>
             )}
-            {listing.hasReserve && !isEnded && (
-              <Badge
-                variant={reserveMet ? "success" : "warning"}
-                className="ml-auto text-[10px]"
-              >
-                {reserveMet ? "Reserve Met" : "Reserve Not Met"}
-              </Badge>
-            )}
+            <span className="ml-auto text-xs font-semibold">
+              {!listing.hasReserve ? (
+                <span className="text-bat-green">No Reserve</span>
+              ) : isEnded ? null : reserveMet ? (
+                <span className="text-bat-green">Reserve Met</span>
+              ) : (
+                <span className="text-gray-400">Reserve</span>
+              )}
+            </span>
           </div>
         </div>
       </div>

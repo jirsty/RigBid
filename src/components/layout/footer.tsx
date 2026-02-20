@@ -3,18 +3,18 @@ import { Truck } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="border-t border-gray-200 bg-navy-950 text-gray-400">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+    <footer className="bg-navy-900 text-gray-400">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand */}
           <div className="col-span-1">
             <Link href="/" className="flex items-center gap-2">
               <Truck className="h-7 w-7 text-brand-500" />
-              <span className="text-lg font-bold text-white">
+              <span className="text-lg font-bold tracking-tight text-white">
                 Rig<span className="text-brand-500">Bid</span>
               </span>
             </Link>
-            <p className="mt-3 text-sm">
+            <p className="mt-4 text-sm leading-relaxed text-gray-500">
               The premier auction platform for semi trucks. Transparent pricing,
               verified sellers, and a community that knows trucks.
             </p>
@@ -22,25 +22,39 @@ export function Footer() {
 
           {/* Auctions */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-white">Auctions</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Auctions
+            </h4>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/auctions" className="hover:text-white transition-colors">
+                <Link
+                  href="/auctions"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Browse All
                 </Link>
               </li>
               <li>
-                <Link href="/auctions?sort=ending" className="hover:text-white transition-colors">
+                <Link
+                  href="/auctions?sort=ending"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Ending Soon
                 </Link>
               </li>
               <li>
-                <Link href="/results" className="hover:text-white transition-colors">
+                <Link
+                  href="/results"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Auction Results
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard/listings/new" className="hover:text-white transition-colors">
+                <Link
+                  href="/dashboard/listings/new"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Sell a Truck
                 </Link>
               </li>
@@ -49,20 +63,31 @@ export function Footer() {
 
           {/* Resources */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-white">Resources</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Resources
+            </h4>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/how-it-works" className="hover:text-white transition-colors">
+                <Link
+                  href="/how-it-works"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   How It Works
                 </Link>
               </li>
               <li>
-                <Link href="/inspections" className="hover:text-white transition-colors">
+                <Link
+                  href="/inspections"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Inspection Services
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="hover:text-white transition-colors">
+                <Link
+                  href="/faq"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   FAQ
                 </Link>
               </li>
@@ -71,25 +96,39 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-white">Company</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-300">
+              Company
+            </h4>
+            <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
+                <Link
+                  href="/about"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="hover:text-white transition-colors">
+                <Link
+                  href="/terms"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="hover:text-white transition-colors">
+                <Link
+                  href="/privacy"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-white transition-colors">
+                <Link
+                  href="/contact"
+                  className="text-gray-500 transition-colors hover:text-white"
+                >
                   Contact
                 </Link>
               </li>
@@ -97,7 +136,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-navy-800 pt-6 text-center text-sm">
+        <div className="mt-12 border-t border-navy-800 pt-8 text-center text-sm text-gray-600">
           <p>&copy; {new Date().getFullYear()} RigBid. All rights reserved.</p>
         </div>
       </div>
