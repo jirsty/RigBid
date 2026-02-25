@@ -1815,7 +1815,7 @@ export default function NewListingPage() {
             Create New Listing
           </h1>
           <p className="mt-1 text-sm text-gray-500">
-            List your semi truck for auction on RigBid
+            List your semi truck for auction on BigRigBids
           </p>
         </div>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ListingCard } from "@/components/listings/listing-card";
+import { HeroSearch } from "@/components/hero-search";
 import { db } from "@/lib/db";
 import {
   Truck,
@@ -45,23 +46,28 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* Minimal editorial header area */}
-      <section className="border-b border-gray-200 bg-white py-10 lg:py-14">
+      {/* Hero with prominent search bar */}
+      <section className="border-b border-gray-200 bg-white py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl">
+          <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Auctions for Semi Trucks
             </h1>
             <p className="mt-3 text-base text-gray-500">
-              Curated, time-limited auctions with transparent bidding, verified
-              sellers, and a community that knows trucks.
+              Curated auctions with transparent bidding, verified sellers, and a community that knows trucks.
             </p>
-            <div className="mt-6 flex items-center gap-4 text-sm">
+
+            {/* Search bar */}
+            <div className="mt-8">
+              <HeroSearch />
+            </div>
+
+            <div className="mt-6 flex items-center justify-center gap-4 text-sm">
               <Link
                 href="/auctions"
                 className="font-semibold text-brand-600 hover:text-brand-700"
               >
-                Browse Auctions <ArrowRight className="ml-1 inline h-4 w-4" />
+                Browse All Auctions <ArrowRight className="ml-1 inline h-4 w-4" />
               </Link>
               <span className="text-gray-300">|</span>
               <Link
@@ -78,7 +84,7 @@ export default async function HomePage() {
       {/* Subtle trust indicators - single line */}
       <div className="border-b border-gray-100 bg-white py-3">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-xs text-gray-400">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
             <span>Verified Sellers</span>
             <span className="hidden sm:inline">&middot;</span>
             <span>Public Bid History</span>
@@ -156,7 +162,7 @@ export default async function HomePage() {
               No Active Auctions Yet
             </h2>
             <p className="mt-2 text-sm text-gray-500">
-              Be the first to list your truck on RigBid and reach thousands of
+              Be the first to list your truck on BigRigBids and reach thousands of
               qualified buyers.
             </p>
             <Link

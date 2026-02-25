@@ -3,20 +3,48 @@
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Truck,
   Search,
   Menu,
   X,
-  User,
   ChevronDown,
-  Gavel,
   PlusCircle,
   LayoutDashboard,
   LogOut,
   Heart,
 } from "lucide-react";
+
+function PersistentSearch({ className }: { className?: string }) {
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = query.trim();
+    if (trimmed) {
+      router.push(`/auctions?q=${encodeURIComponent(trimmed)}`);
+    } else {
+      router.push("/auctions");
+    }
+    setQuery("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className={`relative ${className ?? ""}`}>
+      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search auctions..."
+        className="h-9 w-full rounded-md border border-gray-200 bg-gray-50 pl-9 pr-3 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+      />
+    </form>
+  );
+}
 
 export function Header() {
   const { data: session } = useSession();
@@ -30,17 +58,17 @@ export function Header() {
 
       <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+          <div className="flex h-16 items-center gap-4">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex shrink-0 items-center gap-2">
               <Truck className="h-7 w-7 text-brand-600" />
               <span className="text-xl font-bold tracking-tight text-gray-900">
-                Rig<span className="text-brand-600">Bid</span>
+                BigRig<span className="text-brand-600">Bids</span>
               </span>
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden items-center gap-8 md:flex">
+            <nav className="hidden items-center gap-6 md:flex">
               <Link
                 href="/auctions"
                 className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900"
@@ -54,12 +82,6 @@ export function Header() {
                 Results
               </Link>
               <Link
-                href="/how-it-works"
-                className="text-sm font-medium text-gray-500 transition-colors hover:text-gray-900"
-              >
-                How It Works
-              </Link>
-              <Link
                 href="/dashboard/listings/new"
                 className="text-sm font-medium text-brand-600 transition-colors hover:text-brand-700"
               >
@@ -67,18 +89,13 @@ export function Header() {
               </Link>
             </nav>
 
-            {/* Right side */}
-            <div className="hidden items-center gap-2 md:flex">
-              <Link href="/auctions">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-gray-400 hover:text-gray-600 hover:bg-gray-100"
-                >
-                  <Search className="h-5 w-5" />
-                </Button>
-              </Link>
+            {/* Persistent search bar - fills available space */}
+            <div className="hidden flex-1 justify-end md:flex">
+              <PersistentSearch className="w-full max-w-xs lg:max-w-sm" />
+            </div>
 
+            {/* Right side actions */}
+            <div className="hidden shrink-0 items-center gap-2 md:flex">
               {session ? (
                 <div className="relative">
                   <button
@@ -161,21 +178,27 @@ export function Header() {
             </div>
 
             {/* Mobile menu button */}
-            <button
-              className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 md:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
+            <div className="ml-auto md:hidden">
+              <button
+                className="rounded-md p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
           </div>
 
           {/* Mobile menu */}
           {mobileMenuOpen && (
             <div className="border-t border-gray-100 pb-4 md:hidden">
+              {/* Mobile search */}
+              <div className="px-3 pt-3">
+                <PersistentSearch />
+              </div>
               <div className="space-y-1 pt-3">
                 <Link
                   href="/auctions"
@@ -190,13 +213,6 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Results
-                </Link>
-                <Link
-                  href="/how-it-works"
-                  className="block rounded-md px-3 py-2.5 text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  How It Works
                 </Link>
                 <Link
                   href="/dashboard/listings/new"

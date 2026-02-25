@@ -12,7 +12,7 @@ const resend = isResendConfigured
   : null;
 
 const FROM_ADDRESS =
-  process.env.EMAIL_FROM || "RigBid <notifications@rigbid.com>";
+  process.env.EMAIL_FROM || "BigRigBids <notifications@bigrigbids.com>";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
@@ -30,7 +30,7 @@ function layout(body: string): string {
         <!-- Header -->
         <tr>
           <td style="background-color:#0f172a;padding:24px 32px;">
-            <span style="font-size:22px;font-weight:700;color:#ffffff;">Rig<span style="color:#f97316;">Bid</span></span>
+            <span style="font-size:22px;font-weight:700;color:#ffffff;">BigRig<span style="color:#f97316;">Bids</span></span>
           </td>
         </tr>
         <!-- Body -->
@@ -42,7 +42,7 @@ function layout(body: string): string {
         <!-- Footer -->
         <tr>
           <td style="padding:24px 32px;border-top:1px solid #e5e7eb;color:#9ca3af;font-size:12px;line-height:1.5;">
-            <p style="margin:0;">You received this email because you have an account on RigBid.</p>
+            <p style="margin:0;">You received this email because you have an account on BigRigBids.</p>
             <p style="margin:8px 0 0 0;">
               <a href="${BASE_URL}/settings/notifications" style="color:#9ca3af;text-decoration:underline;">Manage notification preferences</a>
               &nbsp;&middot;&nbsp;

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { TRUCK_MAKES, US_STATES } from "@/lib/constants";
-import { SlidersHorizontal, X, ChevronDown, ChevronUp } from "lucide-react";
+import { SlidersHorizontal, X, ChevronDown, ChevronUp, Search } from "lucide-react";
 
 const SORT_OPTIONS = [
   { value: "ending", label: "Ending Soonest" },
@@ -79,6 +79,7 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   // Read current filter values from URL
+  const currentQuery = searchParams.get("q") ?? "";
   const currentMakes = searchParams.get("make")?.split(",").filter(Boolean) ?? [];
   const currentYearMin = searchParams.get("yearMin") ?? "";
   const currentYearMax = searchParams.get("yearMax") ?? "";
@@ -96,6 +97,7 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
   // Count active filters (excluding sort)
   const activeFilterCount = useMemo(() => {
     let count = 0;
+    if (currentQuery) count++;
     if (currentMakes.length > 0) count++;
     if (currentYearMin || currentYearMax) count++;
     if (currentMileageMin || currentMileageMax) count++;
@@ -107,6 +109,7 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
     if (currentState) count++;
     return count;
   }, [
+    currentQuery,
     currentMakes.length,
     currentYearMin,
     currentYearMax,
@@ -180,6 +183,29 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
 
   const filtersContent = (
     <div className="space-y-0">
+      {/* Search */}
+      <div className="pb-3.5">
+        <div className="relative">
+          <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search keywords..."
+            value={currentQuery}
+            onChange={(e) => updateParams({ q: e.target.value || null })}
+            className="h-9 w-full rounded-md border border-gray-200 bg-white pl-8 pr-8 text-sm text-gray-900 placeholder:text-gray-400 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+          />
+          {currentQuery && (
+            <button
+              type="button"
+              onClick={() => updateParams({ q: null })}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Sort */}
       <div className="pb-3.5">
         <Select

@@ -9,15 +9,15 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "RigBid — Semi Truck Auctions",
-    template: "%s | RigBid",
+    default: "BigRigBids — Semi Truck Auctions",
+    template: "%s | BigRigBids",
   },
   description:
     "Buy and sell semi trucks through curated, time-limited auctions. Transparent pricing, verified sellers, and a community that knows trucks.",
   openGraph: {
     type: "website",
-    siteName: "RigBid",
-    title: "RigBid — Semi Truck Auctions",
+    siteName: "BigRigBids",
+    title: "BigRigBids — Semi Truck Auctions",
     description:
       "Buy and sell semi trucks through curated, time-limited auctions.",
   },

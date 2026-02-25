@@ -6,7 +6,7 @@ import { Truck } from "lucide-react";
 import type { Prisma } from "@prisma/client";
 
 export const metadata: Metadata = {
-  title: "Browse Semi Truck Auctions | RigBid",
+  title: "Browse Semi Truck Auctions | BigRigBids",
   description:
     "Browse active semi truck auctions. Filter by make, year, mileage, price, and more. Find your next Freightliner, Peterbilt, Kenworth, or Volvo.",
 };
@@ -37,6 +37,7 @@ function getIntParam(
 async function getListings(
   params: Record<string, string | string[] | undefined>,
 ) {
+  const q = getStringParam(params, "q");
   const make = getStringParam(params, "make");
   const yearMin = getIntParam(params, "yearMin");
   const yearMax = getIntParam(params, "yearMax");
@@ -54,6 +55,18 @@ async function getListings(
 
   // Build where clause
   const where: Prisma.ListingWhereInput = {};
+
+  // Keyword search
+  if (q) {
+    where.OR = [
+      { title: { contains: q, mode: "insensitive" } },
+      { make: { contains: q, mode: "insensitive" } },
+      { model: { contains: q, mode: "insensitive" } },
+      { description: { contains: q, mode: "insensitive" } },
+      { locationCity: { contains: q, mode: "insensitive" } },
+      { locationState: { contains: q, mode: "insensitive" } },
+    ];
+  }
 
   // Status filter
   if (includeEnded) {
@@ -152,16 +165,17 @@ async function getListings(
 export default async function AuctionsPage({ searchParams }: AuctionsPageProps) {
   const params = await searchParams;
   const listings = await getListings(params);
+  const searchQuery = getStringParam(params, "q");
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Page Header */}
       <div className="mb-8 border-b border-gray-200 pb-6">
         <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-          Auctions
+          {searchQuery ? `Results for "${searchQuery}"` : "Auctions"}
         </h1>
         <p className="mt-2 text-sm text-gray-500">
-          {listings.length} {listings.length === 1 ? "active listing" : "active listings"}
+          {listings.length} {listings.length === 1 ? "listing" : "listings"} found
         </p>
       </div>
 

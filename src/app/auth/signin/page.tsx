@@ -30,7 +30,7 @@ export default function SignInPage() {
       setError("Invalid email or password");
       setLoading(false);
     } else {
-      router.push("/dashboard");
+      router.push("/auctions");
       router.refresh();
     }
   };
@@ -43,7 +43,7 @@ export default function SignInPage() {
           <Link href="/" className="inline-flex items-center gap-2.5">
             <Truck className="h-8 w-8 text-brand-600" />
             <span className="text-2xl font-bold tracking-tight text-gray-900">
-              Rig<span className="text-brand-600">Bid</span>
+              BigRig<span className="text-brand-600">Bids</span>
             </span>
           </Link>
         </div>
@@ -53,13 +53,13 @@ export default function SignInPage() {
           <div className="mb-6">
             <h1 className="text-xl font-semibold text-gray-900">Sign in to your account</h1>
             <p className="mt-1 text-sm text-gray-500">
-              Welcome back to RigBid
+              Welcome back to BigRigBids
             </p>
           </div>
 
           {/* Google OAuth */}
           <button
-            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            onClick={() => signIn("google", { callbackUrl: "/auctions" })}
             className="flex w-full items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:ring-offset-1"
           >
             <svg className="h-4 w-4" viewBox="0 0 24 24">

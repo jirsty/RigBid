@@ -6,7 +6,7 @@ import { ResultsSearch } from "./results-search";
 import type { Prisma } from "@prisma/client";
 
 export const metadata: Metadata = {
-  title: "Auction Results | RigBid",
+  title: "Auction Results | BigRigBids",
   description:
     "Browse completed semi truck auction results. See what trucks sold for and research market values.",
 };

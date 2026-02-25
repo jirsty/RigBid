@@ -23,7 +23,7 @@ import {
 export const metadata: Metadata = {
   title: "How It Works",
   description:
-    "Learn how to buy and sell semi trucks on RigBid. Simple, transparent auctions built for the trucking industry.",
+    "Learn how to buy and sell semi trucks on BigRigBids. Simple, transparent auctions built for the trucking industry.",
 };
 
 // ─── Step data ───────────────────────────────────────────────────────────────
@@ -149,7 +149,7 @@ const faqs: FAQ[] = [
   {
     question: "Can I get the truck inspected before buying?",
     answer:
-      "Yes. RigBid offers independent inspection services starting at $249. A certified inspector will examine the truck and provide a detailed report before you bid.",
+      "Yes. BigRigBids offers independent inspection services starting at $249. A certified inspector will examine the truck and provide a detailed report before you bid.",
   },
   {
     question: "How do payments work?",
@@ -164,12 +164,12 @@ const faqs: FAQ[] = [
   {
     question: "Is there a warranty or guarantee?",
     answer:
-      "RigBid is an auction marketplace — trucks are sold as-is. We strongly recommend requesting an inspection before bidding. Every listing includes detailed photos and condition disclosures.",
+      "BigRigBids is an auction marketplace — trucks are sold as-is. We strongly recommend requesting an inspection before bidding. Every listing includes detailed photos and condition disclosures.",
   },
   {
     question: "How do I contact support?",
     answer:
-      "Email us at support@rigbid.com or use the contact form on the site. We typically respond within a few hours during business days.",
+      "Email us at support@bigrigbids.com or use the contact form on the site. We typically respond within a few hours during business days.",
   },
 ];
 
@@ -225,7 +225,7 @@ export default function HowItWorksPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-              How <span className="text-brand-500">RigBid</span> Works
+              How <span className="text-brand-500">BigRigBids</span> Works
             </h1>
             <p className="mt-4 text-lg text-gray-300">
               Buy or sell semi trucks through transparent, time-limited auctions.
@@ -290,7 +290,7 @@ export default function HowItWorksPage() {
                 List your truck and reach thousands of buyers
               </h2>
               <p className="mt-3 text-gray-600">
-                RigBid makes selling simple. Upload your photos, fill in the
+                BigRigBids makes selling simple. Upload your photos, fill in the
                 specs, and let the auction do the work. No negotiations, no
                 tire-kickers — just qualified bids.
               </p>
@@ -360,7 +360,7 @@ export default function HowItWorksPage() {
               Frequently Asked Questions
             </h2>
             <p className="mt-2 text-gray-600">
-              Everything you need to know about buying and selling on RigBid.
+              Everything you need to know about buying and selling on BigRigBids.
             </p>
           </div>
 

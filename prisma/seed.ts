@@ -126,7 +126,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 // ─── Main Seed ──────────────────────────────────────────────────────────────────
 
 async function main() {
-  console.log('Seeding RigBid database...\n');
+  console.log('Seeding BigRigBids database...\n');
 
   // ── Delete existing data in FK-safe order ──────────────────────────────────
   console.log('Clearing existing data...');
@@ -152,7 +152,7 @@ async function main() {
   const admin = await prisma.user.create({
     data: {
       name: 'Admin User',
-      email: 'admin@rigbid.com',
+      email: 'admin@bigrigbids.com',
       passwordHash,
       role: 'ADMIN',
       verificationStatus: 'UNVERIFIED',
@@ -1474,7 +1474,7 @@ async function main() {
   console.log(`  Transactions:       2`);
   console.log('========================================\n');
   console.log('Default login credentials:');
-  console.log('  Admin:   admin@rigbid.com    / password123');
+  console.log('  Admin:   admin@bigrigbids.com / password123');
   console.log('  Seller:  mike@example.com    / password123');
   console.log('  Seller:  dealer@example.com  / password123');
   console.log('  Buyer:   john@example.com    / password123');

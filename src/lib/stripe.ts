@@ -33,11 +33,11 @@ export async function createListingFeeCheckout(
         price_data: {
           currency: "usd",
           product_data: {
-            name: `RigBid ${tierLabel} Fee`,
+            name: `BigRigBids ${tierLabel} Fee`,
             description:
               tier === "FEATURED"
                 ? "Priority placement and highlighted in search results"
-                : "Standard auction listing on RigBid",
+                : "Standard auction listing on BigRigBids",
           },
           unit_amount: amount,
         },
@@ -73,7 +73,7 @@ export async function createBuyerPremiumCheckout(
         price_data: {
           currency: "usd",
           product_data: {
-            name: "RigBid Buyer Premium",
+            name: "BigRigBids Buyer Premium",
             description: "5% buyer premium (capped at $5,000)",
           },
           unit_amount: premiumAmount,

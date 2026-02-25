@@ -210,7 +210,7 @@ export default function BuyerPremiumPage() {
           </Button>
           <p className="text-center text-xs text-gray-400">
             The winning bid amount is settled separately between buyer and
-            seller. This payment covers the RigBid buyer premium only.
+            seller. This payment covers the BigRigBids buyer premium only.
           </p>
         </CardFooter>
       </Card>

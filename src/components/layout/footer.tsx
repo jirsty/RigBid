@@ -11,7 +11,7 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-2">
               <Truck className="h-7 w-7 text-brand-500" />
               <span className="text-lg font-bold tracking-tight text-white">
-                Rig<span className="text-brand-500">Bid</span>
+                BigRig<span className="text-brand-500">Bids</span>
               </span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-gray-500">
@@ -137,7 +137,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-navy-800 pt-8 text-center text-sm text-gray-600">
-          <p>&copy; {new Date().getFullYear()} RigBid. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} BigRigBids. All rights reserved.</p>
         </div>
       </div>
     </footer>

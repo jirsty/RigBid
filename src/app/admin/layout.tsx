@@ -36,7 +36,7 @@ export default async function AdminLayout({
         {/* Brand */}
         <div className="flex h-16 items-center gap-2 border-b border-navy-800 px-6">
           <Truck className="h-6 w-6 text-brand-500" />
-          <span className="text-lg font-bold tracking-tight">RigBid Admin</span>
+          <span className="text-lg font-bold tracking-tight">BigRigBids Admin</span>
         </div>
 
         {/* Navigation */}

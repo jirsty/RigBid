@@ -119,7 +119,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: listing.title,
     description,
     openGraph: {
-      title: `${listing.title} | RigBid`,
+      title: `${listing.title} | BigRigBids`,
       description,
       type: "website",
       ...(imageUrl && {
