@@ -77,24 +77,19 @@ export default async function HomePage() {
                 Sell Your Truck <ArrowRight className="ml-1 inline h-4 w-4" />
               </Link>
             </div>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
+              <span>Verified Sellers</span>
+              <span className="hidden sm:inline">&middot;</span>
+              <span>Public Bid History</span>
+              <span className="hidden sm:inline">&middot;</span>
+              <span>Independent Inspections</span>
+              <span className="hidden sm:inline">&middot;</span>
+              <span>Community Q&amp;A</span>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Subtle trust indicators - single line */}
-      <div className="border-b border-gray-100 bg-white py-3">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
-            <span>Verified Sellers</span>
-            <span className="hidden sm:inline">&middot;</span>
-            <span>Public Bid History</span>
-            <span className="hidden sm:inline">&middot;</span>
-            <span>Independent Inspections</span>
-            <span className="hidden sm:inline">&middot;</span>
-            <span>Community Q&amp;A</span>
-          </div>
-        </div>
-      </div>
 
       {/* Ending Soon */}
       {activeListings.length > 0 && (

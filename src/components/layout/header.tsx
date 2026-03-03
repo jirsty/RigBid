@@ -67,6 +67,11 @@ export function Header() {
               </span>
             </Link>
 
+            {/* Persistent search bar - right after logo like BaT */}
+            <div className="hidden flex-1 md:flex">
+              <PersistentSearch className="w-full max-w-xs lg:max-w-sm" />
+            </div>
+
             {/* Desktop Nav */}
             <nav className="hidden items-center gap-6 md:flex">
               <Link
@@ -88,11 +93,6 @@ export function Header() {
                 Sell a Truck
               </Link>
             </nav>
-
-            {/* Persistent search bar - fills available space */}
-            <div className="hidden flex-1 justify-end md:flex">
-              <PersistentSearch className="w-full max-w-xs lg:max-w-sm" />
-            </div>
 
             {/* Right side actions */}
             <div className="hidden shrink-0 items-center gap-2 md:flex">

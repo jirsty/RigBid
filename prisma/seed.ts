@@ -31,63 +31,63 @@ function cents(dollars: number): number {
 const TRUCK_IMAGES: Array<{ url: string; thumbnailUrl: string }> = [
   // 0 - 2019 Freightliner Cascadia (White)
   {
-    url: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2018_Freightliner_Cascadia.jpg/1280px-2018_Freightliner_Cascadia.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2018_Freightliner_Cascadia.jpg/400px-2018_Freightliner_Cascadia.jpg',
   },
   // 1 - 2021 Peterbilt 579 (Black)
   {
-    url: 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1592838064575-70ed626d3a0e?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Peterbilt_579_Lone_Pine_2018-04-07_California_01.jpg/1280px-Peterbilt_579_Lone_Pine_2018-04-07_California_01.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Peterbilt_579_Lone_Pine_2018-04-07_California_01.jpg/400px-Peterbilt_579_Lone_Pine_2018-04-07_California_01.jpg',
   },
   // 2 - 2017 Kenworth T680 (Red)
   {
-    url: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2016_Kenworth_T680.jpg/1280px-2016_Kenworth_T680.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/2016_Kenworth_T680.jpg/400px-2016_Kenworth_T680.jpg',
   },
   // 3 - 2020 Volvo VNL 860 (Silver)
   {
-    url: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/2020_Volvo_VNL860_in_Blue%2C_Front_Right%2C_04-03-2022.jpg/1280px-2020_Volvo_VNL860_in_Blue%2C_Front_Right%2C_04-03-2022.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/2020_Volvo_VNL860_in_Blue%2C_Front_Right%2C_04-03-2022.jpg/400px-2020_Volvo_VNL860_in_Blue%2C_Front_Right%2C_04-03-2022.jpg',
   },
   // 4 - 2016 International LT (Blue)
   {
-    url: 'https://images.unsplash.com/photo-1605705658744-45f0fe8f9663?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1605705658744-45f0fe8f9663?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/2019_International_LT_625_trailer_truck%2C_front_left.jpg/1280px-2019_International_LT_625_trailer_truck%2C_front_left.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/2019_International_LT_625_trailer_truck%2C_front_left.jpg/400px-2019_International_LT_625_trailer_truck%2C_front_left.jpg',
   },
   // 5 - 2018 Mack Anthem (Graphite)
   {
-    url: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1568992687947-868a62a9f521?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/2025_Mack_Anthem_6x4_tractor_%28Stand_Up_Sleeper%29_in_Lacquer_Red%2C_front_right.jpg/1280px-2025_Mack_Anthem_6x4_tractor_%28Stand_Up_Sleeper%29_in_Lacquer_Red%2C_front_right.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/2025_Mack_Anthem_6x4_tractor_%28Stand_Up_Sleeper%29_in_Lacquer_Red%2C_front_right.jpg/400px-2025_Mack_Anthem_6x4_tractor_%28Stand_Up_Sleeper%29_in_Lacquer_Red%2C_front_right.jpg',
   },
   // 6 - 2022 Freightliner Cascadia (Pearl White, Featured)
   {
-    url: 'https://images.unsplash.com/photo-1616432043562-3671ea2e5242?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1616432043562-3671ea2e5242?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Freightliner_Cascadia.jpg/1280px-Freightliner_Cascadia.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Freightliner_Cascadia.jpg/400px-Freightliner_Cascadia.jpg',
   },
   // 7 - 2015 Peterbilt 389 (Black Cherry, Classic)
   {
-    url: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/2021_Peterbilt_389%2C_front_6.8.22.jpg/1280px-2021_Peterbilt_389%2C_front_6.8.22.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/2021_Peterbilt_389%2C_front_6.8.22.jpg/400px-2021_Peterbilt_389%2C_front_6.8.22.jpg',
   },
   // 8 - 2020 Kenworth W990 (Viper Red, Show Truck)
   {
-    url: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2020_Kenworth_W900L_Aerodyne_in_White%2C_Front_Right%2C_01-26-2023.jpg/1280px-2020_Kenworth_W900L_Aerodyne_in_White%2C_Front_Right%2C_01-26-2023.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/2020_Kenworth_W900L_Aerodyne_in_White%2C_Front_Right%2C_01-26-2023.jpg/400px-2020_Kenworth_W900L_Aerodyne_in_White%2C_Front_Right%2C_01-26-2023.jpg',
   },
   // 9 - 2017 Volvo VNL 670 (White)
   {
-    url: 'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/2016_Volvo_VNL_670.jpg/1280px-2016_Volvo_VNL_670.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/2016_Volvo_VNL_670.jpg/400px-2016_Volvo_VNL_670.jpg',
   },
   // 10 - 2023 Freightliner Cascadia (Midnight Blue)
   {
-    url: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/A_2020_Cascadia_126_Shown_in_Green.jpg/1280px-A_2020_Cascadia_126_Shown_in_Green.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/A_2020_Cascadia_126_Shown_in_Green.jpg/400px-A_2020_Cascadia_126_Shown_in_Green.jpg',
   },
   // 11 - 2019 Peterbilt 567 Day Cab (Yellow)
   {
-    url: 'https://images.unsplash.com/photo-1532635241-17e820acc59f?w=1200&h=800&fit=crop',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1532635241-17e820acc59f?w=400&h=300&fit=crop',
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/2020_Peterbilt_567%2C_front_6.8.22.jpg/1280px-2020_Peterbilt_567%2C_front_6.8.22.jpg',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/2020_Peterbilt_567%2C_front_6.8.22.jpg/400px-2020_Peterbilt_567%2C_front_6.8.22.jpg',
   },
 ];
 
@@ -845,16 +845,9 @@ async function main() {
     for (let j = 0; j < PHOTO_CATEGORIES.length; j++) {
       const cat = PHOTO_CATEGORIES[j];
 
-      // Use the real truck image for the main exterior shots, same image with slight crop variations for others
-      const isMainPhoto = j === 0; // EXTERIOR_FRONT is the hero image
-      const cropOffset = j * 5; // Slight variation via crop positioning
-
-      const url = isMainPhoto
-        ? truckImage.url
-        : `${truckImage.url.split('?')[0]}?w=1200&h=800&fit=crop&crop=entropy&q=80&fp-y=0.${50 + cropOffset}`;
-      const thumbnailUrl = isMainPhoto
-        ? truckImage.thumbnailUrl
-        : `${truckImage.thumbnailUrl.split('?')[0]}?w=400&h=300&fit=crop&crop=entropy&q=80&fp-y=0.${50 + cropOffset}`;
+      // Use the same truck image for all photo categories (seed data only)
+      const url = truckImage.url;
+      const thumbnailUrl = truckImage.thumbnailUrl;
 
       await prisma.listingPhoto.create({
         data: {

@@ -23,7 +23,30 @@
       "Bash(git --version)",
       "Bash(where:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:bringatrailer.com)",
+      "WebFetch(domain:www.alyssajohnes.com)",
+      "WebFetch(domain:web.archive.org)",
+      "WebFetch(domain:sitemile.com)",
+      "WebFetch(domain:brandfetch.com)",
+      "WebFetch(domain:www.subframe.com)",
+      "WebFetch(domain:localhost)",
+      "Bash(curl:*)",
+      "WebFetch(domain:unsplash.com)",
+      "Bash(npx prisma db seed:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npx --yes kill-port 3000)",
+      "Bash(lsof -ti:3000)",
+      "Bash(xargs kill -9)",
+      "Bash(netstat -ano)",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:pixabay.com)",
+      "WebFetch(domain:commons.wikimedia.org)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); pages=d[''query''][''pages'']; [print\\(v[''imageinfo''][0].get\\(''thumburl'',''''\\),v[''imageinfo''][0].get\\(''url'',''''\\)\\) for v in pages.values\\(\\)]\")"
     ]
   }
 }
