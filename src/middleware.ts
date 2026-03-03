@@ -1,46 +1,41 @@
-import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default auth((req) => {
+/**
+ * Lightweight middleware that checks the NextAuth session cookie.
+ * Does NOT import the full auth config (which bundles Prisma, bcrypt, etc.)
+ * to stay under Vercel's 1MB Edge Function size limit.
+ */
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const user = req.auth?.user as
-    | { id: string; role?: string; email?: string | null }
-    | undefined;
+
+  // Check for NextAuth session token cookie
+  const token =
+    req.cookies.get("__Secure-authjs.session-token")?.value ||
+    req.cookies.get("authjs.session-token")?.value;
 
   // Protect /dashboard/* routes - must be authenticated
   if (pathname.startsWith("/dashboard")) {
-    if (!user) {
+    if (!token) {
       const signInUrl = new URL("/auth/signin", req.url);
       signInUrl.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(signInUrl);
     }
   }
 
-  // Protect /admin/* routes - must be ADMIN
+  // Protect /admin/* routes - must be authenticated
+  // (Role check is done server-side in the admin pages themselves)
   if (pathname.startsWith("/admin")) {
-    if (!user) {
+    if (!token) {
       const signInUrl = new URL("/auth/signin", req.url);
       signInUrl.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(signInUrl);
-    }
-    if (user.role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/", req.url));
     }
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - api/auth/* (NextAuth routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     * - Public routes are handled by allowing them through in the function above
-     */
-    "/((?!api/auth|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
-  ],
+  matcher: ["/dashboard/:path*", "/admin/:path*"],
 };
