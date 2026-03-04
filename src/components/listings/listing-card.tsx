@@ -78,7 +78,7 @@ export function ListingCard({ listing }: ListingCardProps) {
         </div>
 
         {/* Content */}
-        <div className="px-4 pt-3 pb-4">
+        <div className="px-3 pt-2.5 pb-3 sm:px-4 sm:pt-3 sm:pb-4">
           {/* Title */}
           <h3 className="text-base leading-snug font-semibold text-gray-900 line-clamp-2 group-hover:text-brand-600 transition-colors duration-150">
             {listing.title}

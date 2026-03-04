@@ -67,7 +67,7 @@ export function Header() {
               </span>
             </Link>
 
-            {/* Persistent search bar - right after logo like BaT */}
+            {/* Persistent search bar - desktop: inline after logo */}
             <div className="hidden flex-1 md:flex">
               <PersistentSearch className="w-full max-w-xs lg:max-w-sm" />
             </div>
@@ -192,13 +192,14 @@ export function Header() {
             </div>
           </div>
 
+          {/* Mobile search bar - always visible like BaT */}
+          <div className="border-t border-gray-100 pb-2 pt-2 md:hidden">
+            <PersistentSearch />
+          </div>
+
           {/* Mobile menu */}
           {mobileMenuOpen && (
             <div className="border-t border-gray-100 pb-4 md:hidden">
-              {/* Mobile search */}
-              <div className="px-3 pt-3">
-                <PersistentSearch />
-              </div>
               <div className="space-y-1 pt-3">
                 <Link
                   href="/auctions"

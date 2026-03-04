@@ -46,23 +46,23 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* Hero with prominent search bar */}
-      <section className="border-b border-gray-200 bg-white py-12 lg:py-16">
+      {/* Hero - compact on mobile, prominent on desktop */}
+      <section className="border-b border-gray-200 bg-white py-6 sm:py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
               Auctions for Semi Trucks
             </h1>
-            <p className="mt-3 text-base text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 sm:mt-3 sm:text-base">
               Curated auctions with transparent bidding, verified sellers, and a community that knows trucks.
             </p>
 
-            {/* Search bar */}
-            <div className="mt-8">
+            {/* Search bar - hidden on mobile (shown in header instead) */}
+            <div className="mt-8 hidden sm:block">
               <HeroSearch />
             </div>
 
-            <div className="mt-6 flex items-center justify-center gap-4 text-sm">
+            <div className="mt-4 flex items-center justify-center gap-4 text-sm sm:mt-6">
               <Link
                 href="/auctions"
                 className="font-semibold text-brand-600 hover:text-brand-700"
@@ -78,13 +78,13 @@ export default async function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-gray-400">
+            <div className="mt-4 hidden flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-gray-400 sm:mt-6 sm:flex">
               <span>Verified Sellers</span>
-              <span className="hidden sm:inline">&middot;</span>
+              <span>&middot;</span>
               <span>Public Bid History</span>
-              <span className="hidden sm:inline">&middot;</span>
+              <span>&middot;</span>
               <span>Independent Inspections</span>
-              <span className="hidden sm:inline">&middot;</span>
+              <span>&middot;</span>
               <span>Community Q&amp;A</span>
             </div>
           </div>
@@ -93,9 +93,9 @@ export default async function HomePage() {
 
       {/* Ending Soon */}
       {activeListings.length > 0 && (
-        <section className="bg-white py-10 lg:py-14">
+        <section className="bg-white py-6 sm:py-10 lg:py-14">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-6 flex items-baseline justify-between border-b border-gray-200 pb-4">
+            <div className="mb-4 flex items-baseline justify-between border-b border-gray-200 pb-3 sm:mb-6 sm:pb-4">
               <h2 className="text-xl font-bold text-gray-900">Ending Soon</h2>
               <Link
                 href="/auctions?sort=ending"
@@ -105,13 +105,13 @@ export default async function HomePage() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {activeListings.map((listing) => (
                 <ListingCard key={listing.id} listing={listing} />
               ))}
             </div>
 
-            <div className="mt-6 text-center sm:hidden">
+            <div className="mt-4 text-center sm:hidden">
               <Link
                 href="/auctions?sort=ending"
                 className="text-sm font-medium text-brand-600 hover:text-brand-700"
@@ -125,9 +125,9 @@ export default async function HomePage() {
 
       {/* Recent Results */}
       {recentResults.length > 0 && (
-        <section className="border-t border-gray-200 bg-gray-50 py-10 lg:py-14">
+        <section className="border-t border-gray-200 bg-gray-50 py-6 sm:py-10 lg:py-14">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-6 flex items-baseline justify-between border-b border-gray-200 pb-4">
+            <div className="mb-4 flex items-baseline justify-between border-b border-gray-200 pb-3 sm:mb-6 sm:pb-4">
               <h2 className="text-xl font-bold text-gray-900">
                 Recent Results
               </h2>
