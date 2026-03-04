@@ -79,7 +79,7 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-4 hidden flex-wrap items-center justify-center gap-x-6 gap-y-1 text-xs text-gray-400 sm:mt-6 sm:flex">
-              <span>Verified Sellers</span>
+              <span>Title-Verified Listings</span>
               <span>&middot;</span>
               <span>Public Bid History</span>
               <span>&middot;</span>
@@ -185,7 +185,7 @@ export default async function HomePage() {
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-500">
                 Upload photos, enter specs, and set your price. Our team reviews
-                every listing for quality before it goes live.
+                every listing and verifies title status before it goes live.
               </p>
             </div>
             <div>
@@ -204,8 +204,8 @@ export default async function HomePage() {
                 Close the Deal
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-gray-500">
-                Secure payments through Stripe. Coordinate pickup or shipping
-                directly with the buyer. Done.
+                We connect buyer and seller to complete the sale directly.
+                Arrange payment, pickup, or shipping together. Done.
               </p>
             </div>
           </div>

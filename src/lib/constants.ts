@@ -20,7 +20,7 @@ export const ENGINE_MAKES = [
 
 export const LISTING_FEE_STANDARD = 9900; // $99 in cents
 export const LISTING_FEE_FEATURED = 29900; // $299 in cents
-export const BUYER_PREMIUM_RATE = 0.05; // 5%
+export const BUYER_PREMIUM_RATE = 0.03; // 3%
 export const BUYER_PREMIUM_CAP = 500000; // $5,000 in cents
 export const INSPECTION_BASIC_PRICE = 24900; // $249
 export const INSPECTION_COMPREHENSIVE_PRICE = 74900; // $749

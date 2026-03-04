@@ -26,7 +26,7 @@ export function getBidIncrement(currentBidCents: number): number {
 }
 
 export function calculateBuyerPremium(salePriceCents: number): number {
-  const premium = Math.round(salePriceCents * 0.05);
+  const premium = Math.round(salePriceCents * 0.03);
   const cap = 500000; // $5,000 in cents
   return Math.min(premium, cap);
 }

@@ -47,7 +47,7 @@ const sellerSteps: Step[] = [
     number: 2,
     title: "List Your Truck",
     description:
-      "Upload required photos (13 categories), enter detailed specs, mileage, VIN, and condition notes. Our team reviews every listing before it goes live.",
+      "Upload required photos (13 categories), enter detailed specs, mileage, VIN, and condition notes. Our team reviews every listing and verifies title status before it goes live.",
     icon: Camera,
   },
   {
@@ -68,14 +68,14 @@ const sellerSteps: Step[] = [
     number: 5,
     title: "Truck Sells",
     description:
-      "When the auction ends and the reserve is met (or there is no reserve), the highest bidder wins. We facilitate the transaction between buyer and seller.",
+      "When the auction ends and the reserve is met (or there is no reserve), the highest bidder wins. We connect you with the buyer to complete the sale.",
     icon: Truck,
   },
   {
     number: 6,
-    title: "Get Paid via Stripe",
+    title: "Complete the Sale",
     description:
-      "Payment is processed securely through Stripe. Funds are transferred to your connected Stripe account after the buyer completes payment.",
+      "We introduce you to the winning bidder so you can arrange payment and pickup directly. Just like buying or selling any vehicle — you handle the transaction together.",
     icon: Banknote,
   },
 ];
@@ -104,16 +104,16 @@ const buyerSteps: Step[] = [
   },
   {
     number: 4,
-    title: "Pay for the Truck",
+    title: "Pay the Buyer Premium",
     description:
-      "Complete payment through your dashboard. The sale price plus a 5% buyer's premium (capped at $5,000) is collected via Stripe.",
+      "A 3% buyer's premium (capped at $5,000) is collected through your dashboard. This is the only fee you pay to BigRigBids.",
     icon: DollarSign,
   },
   {
     number: 5,
-    title: "Coordinate Pickup or Shipping",
+    title: "Connect with the Seller",
     description:
-      "Work directly with the seller to arrange pickup or hire a transport company. The listing shows the truck's location to help you plan.",
+      "We introduce you to the seller so you can arrange payment for the truck and coordinate pickup or shipping directly — just like any private sale.",
     icon: PackageCheck,
   },
 ];
@@ -134,7 +134,7 @@ const faqs: FAQ[] = [
   {
     question: "What is the buyer's premium?",
     answer:
-      "Buyers pay a 5% premium on top of the winning bid, capped at $5,000. For example, if you win a truck for $50,000, the premium is $2,500 for a total of $52,500.",
+      "Buyers pay a 3% premium on top of the winning bid, capped at $5,000. For example, if you win a truck for $50,000, the premium is $1,500 for a total of $51,500.",
   },
   {
     question: "How long do auctions last?",
@@ -154,12 +154,12 @@ const faqs: FAQ[] = [
   {
     question: "How do payments work?",
     answer:
-      "All payments are handled securely through Stripe. Buyers pay via credit card or ACH transfer. Sellers receive funds to their connected Stripe account after the buyer's payment clears.",
+      "Sellers pay a listing fee ($99 standard, $299 featured) to list their truck. Buyers pay a 3% buyer's premium (capped at $5,000) when they win. After that, we connect the buyer and seller to complete the sale directly — just like any private vehicle transaction.",
   },
   {
     question: "What happens if the buyer doesn't pay?",
     answer:
-      "Buyers have 48 hours to complete payment after winning. If they fail to pay, the sale is voided and the seller can relist for free. Non-paying buyers may be suspended from the platform.",
+      "Buyers have 48 hours to pay the buyer's premium after winning. If they fail to pay, the sale is voided and the seller can relist for free. Non-paying buyers may be suspended from the platform.",
   },
   {
     question: "Is there a warranty or guarantee?",
@@ -247,7 +247,7 @@ export default function HowItWorksPage() {
                   Verified Listings
                 </p>
                 <p className="text-xs text-gray-500">
-                  Every truck reviewed before going live
+                  Every truck and title verified before going live
                 </p>
               </div>
             </div>
@@ -269,7 +269,7 @@ export default function HowItWorksPage() {
                   Secure Payments
                 </p>
                 <p className="text-xs text-gray-500">
-                  All transactions through Stripe
+                  Listing fees &amp; buyer premiums via Stripe
                 </p>
               </div>
             </div>

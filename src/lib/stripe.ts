@@ -74,7 +74,7 @@ export async function createBuyerPremiumCheckout(
           currency: "usd",
           product_data: {
             name: "BigRigBids Buyer Premium",
-            description: "5% buyer premium (capped at $5,000)",
+            description: "3% buyer premium (capped at $5,000)",
           },
           unit_amount: premiumAmount,
         },

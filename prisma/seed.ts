@@ -1011,7 +1011,7 @@ async function main() {
 
   // Listing 9 (VNL 670) - SOLD to buyer2
   const salePrice9 = cents(36500);
-  const premium9 = Math.min(Math.round(salePrice9 * 0.05), cents(5000));
+  const premium9 = Math.min(Math.round(salePrice9 * 0.03), cents(5000));
   await prisma.transaction.create({
     data: {
       listingId: listings[9].id,
@@ -1027,7 +1027,7 @@ async function main() {
 
   // Listing 10 (2023 Cascadia) - SOLD to buyer1
   const salePrice10 = cents(119000);
-  const premium10 = Math.min(Math.round(salePrice10 * 0.05), cents(5000));
+  const premium10 = Math.min(Math.round(salePrice10 * 0.03), cents(5000));
   await prisma.transaction.create({
     data: {
       listingId: listings[10].id,

@@ -125,7 +125,7 @@ export default function BuyerPremiumPage() {
           <Badge variant="success">Auction Won</Badge>
         </div>
         <p className="mt-2 text-gray-500">
-          Pay the buyer premium to finalize your winning bid.
+          Pay the buyer's premium, then we'll connect you with the seller to complete the sale.
         </p>
       </div>
 
@@ -169,9 +169,9 @@ export default function BuyerPremiumPage() {
           </div>
           <div className="flex items-center justify-between text-gray-600">
             <span>
-              Buyer Premium{" "}
+              Buyer's Premium{" "}
               <span className="text-xs text-gray-400">
-                (5%, capped at $5,000)
+                (3%, capped at $5,000)
               </span>
             </span>
             <span className="font-medium text-gray-900">
@@ -180,9 +180,9 @@ export default function BuyerPremiumPage() {
           </div>
           <div className="border-t border-gray-200 pt-3">
             <div className="flex items-center justify-between">
-              <span className="font-semibold text-gray-900">Total Due</span>
+              <span className="font-semibold text-gray-900">Due to BigRigBids</span>
               <span className="text-xl font-bold text-gray-900">
-                {formatPrice(total)}
+                {formatPrice(buyerPremium)}
               </span>
             </div>
           </div>
@@ -205,12 +205,12 @@ export default function BuyerPremiumPage() {
                 Redirecting to checkout...
               </>
             ) : (
-              `Pay Buyer Premium ${formatPrice(buyerPremium)}`
+              `Pay Buyer's Premium ${formatPrice(buyerPremium)}`
             )}
           </Button>
           <p className="text-center text-xs text-gray-400">
-            The winning bid amount is settled separately between buyer and
-            seller. This payment covers the BigRigBids buyer premium only.
+            After payment, we'll connect you with the seller to arrange
+            payment for the truck and coordinate pickup or shipping.
           </p>
         </CardFooter>
       </Card>

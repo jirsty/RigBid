@@ -172,8 +172,8 @@ export async function sendAuctionWonEmail(
       has been accepted.
     </p>
     <p style="margin:0 0 4px 0;color:#4b5563;font-size:14px;line-height:1.6;">
-      A 5% buyer's premium will be added to the sale price. Complete payment through
-      your dashboard to finalize the purchase and coordinate pickup or shipping.
+      A 3% buyer's premium (capped at $5,000) is due to BigRigBids. After payment,
+      we'll connect you with the seller to arrange payment for the truck and coordinate pickup or shipping.
     </p>
     ${actionButton(listingUrl, "Complete Purchase")}
   `);
@@ -198,8 +198,8 @@ export async function sendAuctionEndedSellerEmail(
   const statusMessage = sold
     ? `<p style="margin:0 0 16px 0;color:#4b5563;font-size:14px;line-height:1.6;">
         Great news, ${sellerName}! Your listing <strong>${listingTitle}</strong> sold
-        for <strong>${formatDollars(finalPrice)}</strong>. The buyer will complete payment
-        shortly and you will be notified when funds are available.
+        for <strong>${formatDollars(finalPrice)}</strong>. Once the buyer pays their premium,
+        we'll connect you both so you can arrange payment and pickup directly.
       </p>`
     : `<p style="margin:0 0 16px 0;color:#4b5563;font-size:14px;line-height:1.6;">
         Hi ${sellerName}, the auction for <strong>${listingTitle}</strong> has ended.
