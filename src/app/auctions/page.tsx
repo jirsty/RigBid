@@ -168,32 +168,32 @@ export default async function AuctionsPage({ searchParams }: AuctionsPageProps) 
   const searchQuery = getStringParam(params, "q");
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-4 sm:py-8 sm:px-6 lg:px-8">
       {/* Page Header */}
-      <div className="mb-8 border-b border-gray-200 pb-6">
-        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+      <div className="mb-4 border-b border-gray-200 pb-3 sm:mb-8 sm:pb-6">
+        <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-3xl">
           {searchQuery ? `Results for "${searchQuery}"` : "Auctions"}
         </h1>
-        <p className="mt-2 text-sm text-gray-500">
+        <p className="mt-1 text-sm text-gray-500">
           {listings.length} {listings.length === 1 ? "listing" : "listings"} found
         </p>
       </div>
 
-      <div className="flex gap-8">
-        {/* Filters Sidebar */}
+      {/* Mobile filter/sort toolbar */}
+      <div className="mb-4 lg:hidden">
         <ListingFilters totalCount={listings.length} />
+      </div>
+
+      <div className="flex gap-8">
+        {/* Desktop Filters Sidebar */}
+        <div className="hidden lg:block">
+          <ListingFilters totalCount={listings.length} />
+        </div>
 
         {/* Listings Grid */}
         <div className="min-w-0 flex-1">
-          {/* Mobile count */}
-          <div className="mb-4 flex items-center justify-between lg:hidden">
-            <p className="text-sm text-gray-500">
-              {listings.length} {listings.length === 1 ? "result" : "results"}
-            </p>
-          </div>
-
           {listings.length > 0 ? (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
               {listings.map((listing) => (
                 <ListingCard key={listing.id} listing={listing} />
               ))}

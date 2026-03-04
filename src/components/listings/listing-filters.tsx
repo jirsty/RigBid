@@ -368,22 +368,33 @@ export function ListingFilters({ totalCount }: ListingFiltersProps) {
 
   return (
     <>
-      {/* Mobile filter button */}
+      {/* Mobile filter toolbar - BaT style */}
       <div className="lg:hidden">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => setMobileOpen(true)}
-          className="relative"
-        >
-          <SlidersHorizontal className="mr-2 h-3.5 w-3.5" />
-          Filters
-          {activeFilterCount > 0 && (
-            <span className="ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-brand-600 text-[9px] font-bold text-white">
-              {activeFilterCount}
-            </span>
-          )}
-        </Button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="flex items-center gap-2 rounded-md bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-gray-800"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            Filters
+            {activeFilterCount > 0 && (
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-brand-600 text-[10px] font-bold text-white">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+          <select
+            value={currentSort}
+            onChange={(e) => updateParams({ sort: e.target.value || null })}
+            className="flex-1 rounded-md border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-700 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+          >
+            {SORT_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Mobile slide-over panel */}
