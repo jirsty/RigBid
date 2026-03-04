@@ -152,7 +152,7 @@ async function main() {
   const admin = await prisma.user.create({
     data: {
       name: 'Admin User',
-      email: 'admin@bigrigbids.com',
+      email: 'admin@bigrigbid.com',
       passwordHash,
       role: 'ADMIN',
       verificationStatus: 'UNVERIFIED',
@@ -1467,7 +1467,7 @@ async function main() {
   console.log(`  Transactions:       2`);
   console.log('========================================\n');
   console.log('Default login credentials:');
-  console.log('  Admin:   admin@bigrigbids.com / password123');
+  console.log('  Admin:   admin@bigrigbid.com  / password123');
   console.log('  Seller:  mike@example.com    / password123');
   console.log('  Seller:  dealer@example.com  / password123');
   console.log('  Buyer:   john@example.com    / password123');

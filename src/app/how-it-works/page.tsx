@@ -169,7 +169,7 @@ const faqs: FAQ[] = [
   {
     question: "How do I contact support?",
     answer:
-      "Email us at support@bigrigbids.com or use the contact form on the site. We typically respond within a few hours during business days.",
+      "Email us at support@bigrigbid.com or use the contact form on the site. We typically respond within a few hours during business days.",
   },
 ];
 

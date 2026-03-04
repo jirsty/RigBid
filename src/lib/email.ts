@@ -12,7 +12,7 @@ const resend = isResendConfigured
   : null;
 
 const FROM_ADDRESS =
-  process.env.EMAIL_FROM || "BigRigBids <notifications@bigrigbids.com>";
+  process.env.EMAIL_FROM || "BigRigBids <notifications@bigrigbid.com>";
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
